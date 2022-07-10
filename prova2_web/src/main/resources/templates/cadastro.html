@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+</head>
+<body>
+    <div th:insert="fragments/cabecalho :: cabecalho(${numero}, ${nome})"></div>
+
+    <div th:if="${#request.getParameter('msg')}" class="alert alert-danger text-center" role="alert">
+        <p th:text="${#request.getParameter('msg')}"></p>
+    </div>
+    <div class="d-flex justify-content-center w-100">
+        <form method="post" th:action="@{/salvar}" th:object="${almoco}" enctype="multipart/form-data">
+            <h1 class="h1">Cadastrar/Editar Almoço</h1>
+            <input type="hidden" th:field="*{id}">
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" class="form-control" name="nome" th:field="*{nome}">
+            </div>
+            <p class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+            <div class="mb-3">
+                <label class="form-label">Imagem</label>
+                <input type="file" name="file" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tamanho</label>
+                <input type="text" class="form-control" name="tamanho" th:field="*{tamanho}">
+            </div>
+            <p class="text-danger" th:if="${#fields.hasErrors('tamanho')}" th:errors="*{tamanho}"></p>
+            <div class="mb-3">
+                <label class="form-label">Composição</label>
+                <input type="text" class="form-control" name="composicao" th:field="*{composicao}" >
+            </div>
+            <p class="text-danger" th:if="${#fields.hasErrors('composicao')}" th:errors="*{composicao}"></p>
+            <div class="mb-3">
+                <label class="form-label">Preço</label>
+                <input type="number" class="form-control" name="preco" th:field="*{preco}" step="0.01">
+            </div>
+            <p class="text-danger" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></p>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="reset" class="btn btn-danger">Limpar</button>
+        </form>
+    </div>
+    <div th:insert="fragments/rodape :: rodape"></div>
+
+</body>
+</html>

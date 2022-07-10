@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:insert="fragments/cabecalho :: cabecalho(${numero}, ${nome})"></div>
+
+<div th:if="${#request.getParameter('msg')}" class="alert alert-primary" role="alert">
+    <p th:text="${#request.getParameter('msg')}"></p>
+</div>
+
+
+<table class="table" >
+    <thead>
+    <tr>
+
+        <th scope="col">Nome</th>
+        <th scope="col">Imagem</th>
+        <th scope="col">Tamanho</th>
+        <th scope="col">Composição</th>
+        <th scope="col">Preço</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Deletar</th>
+    </tr>
+    </thead>
+    <tbody th:each="a : ${listaAdm}" th:object="${a}">
+    <tr>
+        <td th:text="*{nome}"></td>
+        <td><img class="img-fluid" th:src="@{'/images/' + *{imageUri}}" alt="imagem"/></td>
+
+        <td th:text="*{tamanho}"></td>
+        <td th:text="*{composicao}"></td>
+        <td th:text="*{#strings.replace(#numbers.formatCurrency(preco), '.', ',')}"></td>
+        <td><a th:href="@{'/editar/' + *{id}}">Editar</a></td>
+        <td><a th:href="@{'/deletar/' + *{id}}">Deletar</a></td>
+
+    </tr>
+    </tbody>
+</table>
+<a class="nav-link" href="/cadastro">Cadastro</a>
+
+<div th:insert="fragments/rodape :: rodape"></div>
+
+</body>
+</html>

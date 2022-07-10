@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div th:fragment="cabecalho(numero, nome)">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!">Start Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/index">Home</a></li>
+
+                        <li class="nav-item">
+                            <a th:if="${isUsuarioLogado == true}" class="nav-link" href="/logout">Logout</a>
+                            <a th:unless="${isUsuarioLogado == true}" class="nav-link" href="/login">Login</a>
+                        </li>
+                    <li th:if="${isAdmin == true}"  class="nav-item">
+                        <a class="nav-link" href="/cadastro">Cadastrar Almoço</a>
+                    </li>
+                    <li th:if="${isAdmin == true}"  class="nav-item">
+                        <a class="nav-link" href="/admin">Gerenciar Almoço</a>
+                    </li>
+
+                </ul>
+
+                <form th:if="${isNotAdmin == true}" method="get" th:action="@{/verCarrinho}" class="d-flex">
+                    <button  class="btn btn-outline-dark" type="submit">
+                        <i class="bi-cart-fill me-1"></i>
+                        Carrinho
+                        <span th:text="${numero}" class="badge bg-dark text-white ms-1 rounded-pill"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Restaurante Universitário</h1>
+                <p th:text="'Bem vindo, ' + ${nome}" class="lead fw-bolder text-white-50 mb-0"></p>
+            </div>
+        </div>
+    </header>
+</div>
+
+</body>
+</html>
